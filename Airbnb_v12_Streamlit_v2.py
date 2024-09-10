@@ -82,11 +82,13 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(9, 6))
     counts = user_data['gender'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(x=user_data['gender'].fillna('NaN'), order=counts.index, ax=ax)
-    plt.xlabel('Gender')
-    plt.ylabel('Count')
-    plt.title('Gender Distribution')
-    for i in range(counts.shape[0]):
-        plt.text(i, counts[i]+1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+    ax.set_xlabel('Account Creation Date')
+    ax.set_ylabel('Count')
+    ax.set_title('Account Creation Date Frequency')
+    anomalies = ['2011-09', '2012-09', '2013-09']
+    for anomaly in anomalies:
+        ax.axvline(pd.to_datetime(anomaly, format='%Y-%m'), color='#CB4335', linestyle='dashed', linewidth=1.1)
+        ax.text(pd.to_datetime(anomaly, format='%Y-%m'), -14, anomaly, ha='center', color='#92140C')
     sns.despine()
     st.pyplot(fig)
 
