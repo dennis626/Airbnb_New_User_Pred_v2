@@ -479,6 +479,17 @@ def display_visual_analysis():
     sns.despine()
     st.pyplot(fig)
 
+    # Whether Members Booked Per Gender
+    st.write("#### Whether Members Booked Per Gender")
+    booked_status = user_data['date_first_booking'].notna()
+    fig, ax = plt.subplots(figsize=(10, 7))
+    sns.countplot(x=booked_status, hue='signup_method', data=user_data, ax=ax)
+    plt.xlabel('Status')
+    plt.ylabel('Count')
+    plt.title('Whether Members Booked Per Signup Method')
+    sns.despine()
+    st.pyplot(fig)
+
     # Monthly Booking Trends
     st.write("#### Monthly Booking Trends")
     user_data['year_month_booking'] = user_data['date_first_booking'].dt.to_period('M').astype(str)
