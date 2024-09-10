@@ -394,15 +394,79 @@ def display_visual_analysis():
 
     # Cohort Analysis by Destination Country
     st.write("#### Cohort Analysis by Destination Country")
+    user_data['date_account_created'] = pd.to_datetime(user_data['date_account_created'])
     user_data['cohort_month'] = user_data['date_account_created'].dt.to_period('M')
+    user_data['cohort_year'] = user_data['cohort_month'].dt.year
     cohort_counts = user_data.groupby(['cohort_month', 'country_destination']).size().unstack().fillna(0)
     cohort_percent = cohort_counts.divide(cohort_counts.sum(axis=1), axis=0) * 100
+    cohort_percent.index = cohort_percent.index.astype(str)
     fig = go.Figure()
-    for year in sorted(user_data['cohort_month'].dt.year.unique()):
-        filtered_data = cohort_percent[cohort_percent.index.year == year]
-        fig.add_trace(go.Heatmap(z=filtered_data.T.values, x=filtered_data.index, y=filtered_data.columns, colorscale='Blues', visible=False, name=str(year)))
-    fig.data[0].visible = True
+    
+    # Add a trace for each year
+    years = sorted(user_data['cohort_year'].unique())
+    for year in years:
+        filtered_data = cohort_percent[cohort_percent.index.str.startswith(str(year))]
+        fig.add_trace(go.Heatmap(
+            z=filtered_data.T.values,
+            x=filtered_data.index,
+            y=filtered_data.columns,
+            colorscale='Blues',
+            visible=False,
+            name=str(year)
+        ))
+    
+    if len(fig.data) > 0:
+        fig.data[0].visible = True
+    
+    dropdown_buttons = [
+        {
+            'label': f'Year {year}',
+            'method': 'update',
+            'args': [{'visible': [year == int(trace.name) for trace in fig.data]},
+                     {'title': f'Cohort Analysis by Destination Country for {year}'}]
+        }
+        for year in years
+    ]
+    
+    dropdown_buttons.append(
+        {
+            'label': 'Show All',
+            'method': 'update',
+            'args': [{'visible': [True] * len(fig.data)},
+                     {'title': 'Cohort Analysis by Destination Country (All Years)'}]
+        }
+    )
+    
+    # Update layout with dropdown menu
+    fig.update_layout(
+        title='Cohort Analysis by Destination Country',
+        xaxis_title='Cohort Month',
+        yaxis_title='Destination Country',
+        updatemenus=[{
+            'buttons': dropdown_buttons,
+            'direction': 'down',
+            'showactive': True,
+            'x': 1,
+            'xanchor': 'left',
+            'y': 1.15,
+            'yanchor': 'top'
+        }],
+        height=600,
+        template='plotly_white'
+    )
     st.plotly_chart(fig)
+
+
+
+
+
+
+
+
+
+
+
+    
 
     # Whether Members Booked Per Gender
     st.write("#### Whether Members Booked Per Gender")
