@@ -501,6 +501,46 @@ def display_visual_analysis():
     sns.despine()
     st.plotly_chart(fig)
 
+    # Whether Members Booked Per Gender
+    st.write("#### Whether Members Booked Per Gender")
+    booked_status = user_data['date_first_booking'].notna()
+    fig, ax = plt.subplots(figsize=(10, 7))
+    sns.countplot(x=booked_status, hue='gender', data=user_data, ax=ax)
+    counts = user_data.groupby([booked_status, 'gender']).size().unstack().fillna(0)
+    total = user_data.shape[0]  
+    for p in ax.patches:
+        height = p.get_height()
+        ax.text(p.get_x() + p.get_width() / 2, height + 100, f'{height / total * 100:.2f}%', ha='center', fontsize=10)
+    ax.set_xlabel('Status')
+    ax.set_ylabel('Count')
+    ax.set_title('Whether Members Booked Per Gender')
+    sns.despine()
+    st.pyplot(fig)
+    
+    # Whether Members Booked Per Signup Method
+    st.write("#### Whether Members Booked Per Signup Method")
+    fig, ax = plt.subplots(figsize=(10, 7))
+    sns.countplot(x=booked_status, hue='signup_method', data=user_data, ax=ax)
+    counts = user_data.groupby([booked_status, 'signup_method']).size().unstack().fillna(0)
+    total = user_data.shape[0] 
+    for p in ax.patches:
+        height = p.get_height()
+        ax.text(p.get_x() + p.get_width() / 2, height + 100, f'{height / total * 100:.2f}%', ha='center', fontsize=10)
+    ax.set_xlabel('Status')
+    ax.set_ylabel('Count')
+    ax.set_title('Whether Members Booked Per Signup Method')
+    sns.despine()
+    st.pyplot(fig)
+
+
+
+
+
+
+
+
+    
+
     # Target Variable Distribution Per Country Destination (Pie Chart)
     st.write("#### Target Variable Distribution Per Country Destination")
     country_dist = user_data['country_destination'].value_counts().reset_index()
