@@ -222,9 +222,9 @@ def display_visual_analysis():
     creation_dates.index = pd.to_datetime(creation_dates.index)
     fig, ax = plt.subplots(figsize=(13, 7))
     sns.lineplot(x=creation_dates.index, y=creation_dates.values, ax=ax)
-    ax.xlabel('Account Creation Date')
-    ax.ylabel('Count')
-    ax.title('Account Creation Date Frequency')
+    plt.xlabel('Account Creation Date')
+    plt.ylabel('Count')
+    plt.title('Account Creation Date Frequency')
     anomalies = ['2011-09', '2012-09', '2013-09']
     for anomaly in anomalies:
         ax.axvline(pd.to_datetime(anomaly, format='%Y-%m'), color='#CB4335', linestyle='dashed', linewidth=1.1)
