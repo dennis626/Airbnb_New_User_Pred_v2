@@ -59,10 +59,10 @@ def display_visual_analysis():
     st.write("### Visual Analysis (EDA)")
 
     # Age Distribution
-    st.write("#### Age Distribution (Ages 0 - 80)")
+    st.write("#### Age Distribution (Ages 0 - 100)")
     fig, ax = plt.subplots(figsize=(9, 6))
-    sns.histplot(user_data[user_data['age'].between(0, 80)]['age'], ax=ax)
-    ax.set_xlim(0, 80)  # Set the x-axis limit from 0 to 80
+    sns.histplot(user_data[user_data['age'].between(0, 100)]['age'], ax=ax)
+    ax.set_xlim(0, 100)  # Set the x-axis limit from 0 to 100
     st.pyplot(fig)
 
     # Signup Flow Distribution
