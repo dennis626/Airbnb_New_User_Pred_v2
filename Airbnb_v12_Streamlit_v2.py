@@ -132,7 +132,7 @@ def display_visual_analysis():
     plt.title('Affiliate Channel Distribution')
     for i in range(counts.shape[0]):
         plt.text(counts[i]+5200, i+0.09, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
-    sns.despine()    
+    sns.despine()
     st.pyplot(fig)
 
     # Affiliate Channel Flows Treemap
