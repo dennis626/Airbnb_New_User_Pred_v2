@@ -528,7 +528,7 @@ def dropdown_test_ids():
     st.write("### Search User ID")
     selected_test_id = st.selectbox("Select User ID", sub_whole_df['id'].unique())
     filtered_by_test_id = sub_whole_df[sub_whole_df['id'] == selected_test_id]
-    st.write(f"### Country results for ID: {selected_test_id}")
+    st.write(f"### Country results for User ID: {selected_test_id}")
     st.write(filtered_by_test_id)
 
     # Add the remark message
