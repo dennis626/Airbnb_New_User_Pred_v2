@@ -179,11 +179,11 @@ def display_visual_analysis():
     counts_order = counts.index
     fig, ax = plt.subplots(figsize=(10, 7))
     sns.countplot(x=months_freq, order=counts_order, ax=ax)
-    plt.set_xlabel('Booking Date Month')
-    plt.set_ylabel('Count')
-    plt.set_title('Booking Date Month Distribution')
+    ax.set_xlabel('Booking Date Month')
+    ax.set_ylabel('Count')
+    ax.set_title('Booking Date Month Distribution')
     for i in range(counts.shape[0]):
-        plt.text(i, counts[i] + 100, f"{counts[i] / months_freq.shape[0] * 100:.2f}%", ha='center', fontsize=9)
+        ax.text(i, counts[i] + 100, f"{counts[i] / months_freq.shape[0] * 100:.2f}%", ha='center', fontsize=9)
     sns.despine()
     st.pyplot(fig)
 
