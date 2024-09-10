@@ -384,7 +384,7 @@ def display_visual_analysis():
     # Signup Method vs. Destination Country (Stacked Bar)
     st.write("#### Signup Method vs. Destination Country")
     signup_vs_country = user_data.groupby(['signup_method', 'country_destination']).size().reset_index(name='count')
-    fig = px.bar(signup_vs_country, x='Signup Method', y='Count', color='country_destination', title='Signup Method vs. Destination Country', barmode='stack')
+    fig = px.bar(signup_vs_country, x='signup_method', y='count', color='country_destination', title='Signup Method vs. Destination Country', barmode='stack')
     st.plotly_chart(fig)
 
     # Parallel Categories Plot of Gender, Signup Method, and Destination Country
