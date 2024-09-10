@@ -501,67 +501,18 @@ def display_visual_analysis():
     sns.despine()
     st.plotly_chart(fig)
 
-# Monthly Booking Trends
-st.write("#### Monthly Booking Trends")
-user_data['date_first_booking'] = pd.to_datetime(user_data['date_first_booking'])
-user_data['year'] = user_data['date_first_booking'].dt.year
-user_data['year_month_booking'] = user_data['date_first_booking'].dt.to_period('M').astype(str)
-monthly_bookings = user_data.groupby(['year', 'year_month_booking']).size().reset_index(name='counts')
-monthly_bookings['counts'] = monthly_bookings['counts'].clip(upper=6000)
-fig = go.Figure()
-
-years = sorted(user_data['year'].unique())
-for year in years:
-    filtered_data = monthly_bookings[monthly_bookings['year'] == year]
-    fig.add_trace(go.Scatter(
-        x=filtered_data['year_month_booking'],
-        y=filtered_data['counts'],
-        mode='lines+markers',
-        name=str(year),
-        visible=False
-    ))
-if len(fig.data) > 0:
-    fig.data[0].visible = True
-
-# Create dropdown buttons to toggle visibility of traces
-dropdown_buttons = [
-    {
-        'label': f'Year {year}',
-        'method': 'update',
-        'args': [{'visible': [year == int(trace.name) for trace in fig.data]},
-                 {'xaxis.title': 'Year-Month',
-                  'yaxis.title': 'Number of Bookings'}]
-    }
-    for year in years
-]
-dropdown_buttons.append(
-    {
-        'label': 'Show All',
-        'method': 'update',
-        'args': [{'visible': [True] * len(fig.data)},
-                 {'xaxis.title': 'Year-Month',
-                  'yaxis.title': 'Number of Bookings'}]
-    }
-)
-fig.update_layout(
-    title='Monthly Booking Trends (Limited to 6000)',
-    xaxis_title='Month',
-    yaxis_title='Number of Bookings',
-    updatemenus=[{
-        'buttons': dropdown_buttons,
-        'direction': 'down',
-        'showactive': True,
-        'x': 1,
-        'xanchor': 'left',
-        'y': 1.15,
-        'yanchor': 'top'
-    }],
-    height=600,
-    template='plotly_white'
-)
-st.plotly_chart(fig)
-
-
+    # Monthly Booking Trends
+    st.write("#### Monthly Booking Trends")
+    user_data['date_first_booking'] = pd.to_datetime(user_data['date_first_booking'])
+    user_data['year_month_booking'] = user_data['date_first_booking'].dt.to_period('M').astype(str)
+    monthly_bookings = user_data.groupby('year_month_booking').size().reset_index(name='counts')
+    monthly_bookings['counts'] = monthly_bookings['counts'].clip(upper=6000)
+    fig = px.line(monthly_bookings, x='year_month_booking', y='counts', title='Monthly Booking Trends')
+    plt.xlabel('Status')
+    plt.ylabel('Count')
+    plt.title('Whether Members Booked Per Signup Method')
+    sns.despine()
+    st.plotly_chart(fig)
 
     
 
