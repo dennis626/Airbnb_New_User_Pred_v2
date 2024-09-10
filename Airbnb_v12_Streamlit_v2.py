@@ -13,7 +13,7 @@ sub_whole_df = pd.read_csv('result_Best_Score_v2.csv')
 
 # Define a sidebar with four different pages
 st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Select a Page", ["1.0 Model Performance Metrics", "2.0 Visual Analysis (EDA)", "3.0 Dropdown for test_ids", "4.0 Dropdown for lbl_encoder"])
+page = st.sidebar.selectbox("Select a Page", ["1.0 Model Performance Metrics", "2.0 Visual Analysis (EDA)", "3.0 Dropdown for User ID", "4.0 Dropdown for Country"])
 
 # Function to display model performance metrics
 def display_model_performance_metrics():
@@ -525,6 +525,7 @@ def display_visual_analysis():
 
 # Function for dropdown to filter test_ids
 def dropdown_test_ids():
+    st.write("### Search User ID")
     selected_test_id = st.selectbox("Select User ID", sub_whole_df['id'].unique())
     filtered_by_test_id = sub_whole_df[sub_whole_df['id'] == selected_test_id]
     st.write(f"### Country results for ID: {selected_test_id}")
@@ -548,6 +549,7 @@ def dropdown_test_ids():
 
 # Function for dropdown to filter lbl_encoder
 def dropdown_lbl_encoder():
+    st.write("### Search Country")
     selected_lbl_encoder = st.selectbox("Select Country", sub_whole_df['country'].unique())
     filtered_by_lbl_encoder = sub_whole_df[sub_whole_df['country'] == selected_lbl_encoder]
     st.write(f"### User ID for Country {selected_lbl_encoder}")
@@ -574,7 +576,7 @@ if page == "1.0 Model Performance Metrics":
     display_model_performance_metrics()
 elif page == "2.0 Visual Analysis (EDA)":
     display_visual_analysis()
-elif page == "3.0 Dropdown for test_ids":
+elif page == "3.0 Dropdown for User ID":
     dropdown_test_ids()
-elif page == "4.0 Dropdown for lbl_encoder":
+elif page == "4.0 Dropdown for Country":
     dropdown_lbl_encoder()
