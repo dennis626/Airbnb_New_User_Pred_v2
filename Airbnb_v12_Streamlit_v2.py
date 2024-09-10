@@ -63,12 +63,18 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(9, 6))
     sns.histplot(user_data[user_data['age'].between(0, 120)]['age'], ax=ax)
     ax.set_xlim(0, 120)  # Set the x-axis limit from 0 to 120
+    plt.xlabel('Age')
+    plt.title('Age Distribution')
+    sns.despine()
     st.pyplot(fig)
 
     # Signup Flow Distribution
     st.write("#### Signup Flow Distribution")
     fig, ax = plt.subplots(figsize=(9, 6))
     sns.histplot(user_data['signup_flow'], ax=ax)
+    plt.xlabel('Signup Flow')
+    plt.title('Signup Flow Distribution')
+    sns.despine()
     st.pyplot(fig)
 
     # Gender Distribution
@@ -76,9 +82,12 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(9, 6))
     counts = user_data['gender'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(x=user_data['gender'].fillna('NaN'), order=counts.index, ax=ax)
-    for i in range(len(counts)):
-        ax.text(i, counts[i] + 1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
-    st.pyplot(fig)
+    plt.xlabel('Gender')
+    plt.ylabel('Count')
+    plt.title('Gender Distribution')
+    for i in range(counts.shape[0]):
+        plt.text(i, counts[i]+1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+    sns.despine()st.pyplot(fig)
 
     # Gender-Age Distribution
     st.write("#### Gender-Age Distribution")
@@ -91,8 +100,12 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(9, 6))
     counts = user_data['signup_method'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(x=user_data['signup_method'].fillna('NaN'), order=counts.index, ax=ax)
-    for i in range(len(counts)):
-        ax.text(i, counts[i] + 1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+    plt.xlabel('Signup Method')
+    plt.ylabel('Count')
+    plt.title('Signup Method Distribution')
+    for i in range(counts.shape[0]):
+        plt.text(i, counts[i]+1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+    sns.despine()
     st.pyplot(fig)
 
     # Affiliate Provider Distribution
@@ -100,8 +113,12 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(10, 7))
     counts = user_data['affiliate_provider'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(y=user_data['affiliate_provider'].fillna('NaN'), order=counts.index, ax=ax)
+    plt.ylabel('Affiliate Provider')
+    plt.xlabel('Count')
+    plt.title('Affiliate Provider Distribution')
     for i in range(counts.shape[0]):
-        ax.text(counts[i]+5200, i+0.17, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+        plt.text(counts[i]+5200, i+0.17, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=9)
+    sns.despine()
     st.pyplot(fig)
 
     # Affiliate Channel Distribution
@@ -109,8 +126,12 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(10, 6))
     counts = user_data['affiliate_channel'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(y=user_data['affiliate_channel'].fillna('NaN'), order=counts.index, ax=ax)
+    plt.ylabel('Affiliate Channel')
+    plt.xlabel('Count')
+    plt.title('Affiliate Channel Distribution')
     for i in range(counts.shape[0]):
-        ax.text(counts[i]+5200, i+0.09, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+        plt.text(counts[i]+5200, i+0.09, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+    sns.despine()    
     st.pyplot(fig)
 
     # Affiliate Channel Flows Treemap
@@ -118,6 +139,7 @@ def display_visual_analysis():
     signup_flow_dist = user_data['affiliate_channel'].value_counts().reset_index()
     signup_flow_dist.columns = ['affiliate_channel', 'count']
     fig = px.treemap(signup_flow_dist, path=['affiliate_channel'], values='count', title='Affiliate Channel Flows Distribution')
+    sns.despine()    
     st.plotly_chart(fig)
 
     # Language Distribution
@@ -125,8 +147,11 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(12, 6))
     counts = user_data['language'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(x=user_data['language'], ax=ax)
+    plt.xlabel('Language')
+    plt.ylabel('Count')
+    plt.title('Language Distribution')
     for i in range(counts.shape[0]):
-        ax.text(i, counts[i]+1000, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=6)
+        plt.text(i, counts[i]+1000, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=6)
     sns.despine()
     st.pyplot(fig)
 
@@ -153,11 +178,11 @@ def display_visual_analysis():
     counts_order = counts.index
     fig, ax = plt.subplots(figsize=(10, 7))
     sns.countplot(x=months_freq, order=counts_order, ax=ax)
-    ax.set_xlabel('Booking Date Month')
-    ax.set_ylabel('Count')
-    ax.set_title('Booking Date Month Distribution')
+    plt.set_xlabel('Booking Date Month')
+    plt.set_ylabel('Count')
+    plt.set_title('Booking Date Month Distribution')
     for i in range(counts.shape[0]):
-        ax.text(i, counts[i] + 100, f"{counts[i] / months_freq.shape[0] * 100:.2f}%", ha='center', fontsize=9)
+        plt.text(i, counts[i] + 100, f"{counts[i] / months_freq.shape[0] * 100:.2f}%", ha='center', fontsize=9)
     sns.despine()
     st.pyplot(fig)
 
