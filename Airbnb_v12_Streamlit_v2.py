@@ -100,8 +100,8 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(10, 7))
     counts = user_data['affiliate_provider'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(y=user_data['affiliate_provider'].fillna('NaN'), order=counts.index, ax=ax)
-    for i in range(len(counts)):
-        ax.text(i, counts[i] + 1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+    for i in range(counts.shape[0]):
+        ax.text(counts[i]+5200, i+0.17, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
     st.pyplot(fig)
 
     # Affiliate Channel Distribution
