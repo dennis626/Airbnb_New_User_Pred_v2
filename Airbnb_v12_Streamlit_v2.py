@@ -473,6 +473,10 @@ def display_visual_analysis():
     booked_status = user_data['date_first_booking'].notna()
     fig, ax = plt.subplots(figsize=(10, 7))
     sns.countplot(x=booked_status, hue='gender', data=user_data, ax=ax)
+    plt.xlabel('Status')
+    plt.ylabel('Count')
+    plt.title('Whether Members Booked Per Gender')
+    sns.despine()
     st.pyplot(fig)
 
     # Monthly Booking Trends
@@ -480,6 +484,10 @@ def display_visual_analysis():
     user_data['year_month_booking'] = user_data['date_first_booking'].dt.to_period('M').astype(str)
     monthly_bookings = user_data.groupby('year_month_booking').size().reset_index(name='counts')
     fig = px.line(monthly_bookings, x='year_month_booking', y='counts', title='Monthly Booking Trends')
+    plt.xlabel('Status')
+    plt.ylabel('Count')
+    plt.title('Whether Members Booked Per Signup Method')
+    sns.despine()
     st.plotly_chart(fig)
 
     # Target Variable Distribution Per Country Destination (Pie Chart)
