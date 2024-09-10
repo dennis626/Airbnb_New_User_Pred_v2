@@ -173,8 +173,16 @@ def display_visual_analysis():
 
     # Destination Country Distribution
     st.write("#### Destination Country Distribution")
+    counts = user_data['country_destination'].value_counts()
+    counts_order = counts.index
     fig, ax = plt.subplots(figsize=(10, 7))
     sns.countplot(x=user_data['country_destination'], ax=ax)
+    ax.xlabel('Destination Country')
+    ax.ylabel('Count')
+    ax.title('Destination Country Distribution')
+    for i in range(counts.shape[0]):
+        ax.text(i, counts[i]+1000, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+    sns.despine();
     st.pyplot(fig)
 
     # Account Creation Date Frequency
