@@ -574,7 +574,7 @@ if page == "1.0 Model Performance Metrics":
     display_model_performance_metrics()
 elif page == "2.0 Visual Analysis (EDA)":
     display_visual_analysis()
-elif page == "3.0 Dropdown for Select User ID":
+elif page == "3.0 Dropdown for test_ids":
     dropdown_test_ids()
-elif page == "4.0 Dropdown for Select Country":
+elif page == "4.0 Dropdown for lbl_encoder":
     dropdown_lbl_encoder()
