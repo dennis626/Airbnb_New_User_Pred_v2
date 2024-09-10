@@ -226,8 +226,8 @@ def display_visual_analysis():
     ax.set_title('Account Creation Date Frequency')
     anomalies = ['2011-09', '2012-09', '2013-09']
     for anomaly in anomalies:
-    ax.axvline(pd.to_datetime(anomaly, format='%Y-%m'), color='#CB4335', linestyle='dashed', linewidth=1.1)
-    ax.text(pd.to_datetime(anomaly, format='%Y-%m'), -14, anomaly, ha='center', color='#92140C')
+        ax.axvline(pd.to_datetime(anomaly, format='%Y-%m'), color='#CB4335', linestyle='dashed', linewidth=1.1)
+        ax.text(pd.to_datetime(anomaly, format='%Y-%m'), -14, anomaly, ha='center', color='#92140C')
     sns.despine()
     st.pyplot(fig)
 
