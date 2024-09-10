@@ -156,19 +156,19 @@ def display_visual_analysis():
     sns.despine()
     st.pyplot(fig)
 
-
-    # Booking Date Month Distribution
-    st.write("#### Booking Date Month Distribution")
-    months_freq = user_data['date_first_booking'].dropna().dt.month_name().str[:3]
-    fig, ax = plt.subplots(figsize=(10, 7))
-    sns.countplot(x=months_freq, order=months_freq.value_counts().index, ax=ax)
-    st.pyplot(fig)
-
     # Booking Date Week Day Distribution
     st.write("#### Booking Date Week Day Distribution")
     week_days_freq = user_data['date_first_booking'].dropna().dt.day_name()
+    counts = week_days_freq.value_counts()
+    counts_order = counts.index
     fig, ax = plt.subplots(figsize=(10, 7))
-    sns.countplot(x=week_days_freq, order=week_days_freq.value_counts().index, ax=ax)
+    sns.countplot(x=week_days_freq, order=counts_order, ax=ax)
+    ax.xlabel('Booking Date Week Day')
+    ax.ylabel('Count')
+    ax.title('Booking Date Week Day Distribution')
+    for i in range(counts.shape[0]):
+        ax.text(i, counts[i]+200, f"{counts[i]/week_days_freq.shape[0]*100:0.2f}%", ha='center', fontsize=9.5)
+    sns.despine();
     st.pyplot(fig)
 
     # Destination Country Distribution
