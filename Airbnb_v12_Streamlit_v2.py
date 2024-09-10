@@ -168,11 +168,11 @@ def display_visual_analysis():
     counts_order = counts.index
     fig, ax = plt.subplots(figsize=(10, 7))
     sns.countplot(x=week_days_freq, order=counts_order, ax=ax)
-    ax.xlabel('Booking Date Week Day')
-    ax.ylabel('Count')
-    ax.title('Booking Date Week Day Distribution')
+    plt.xlabel('Booking Date Week Day')
+    plt.ylabel('Count')
+    plt.title('Booking Date Week Day Distribution')
     for i in range(counts.shape[0]):
-        ax.text(i, counts[i]+200, f"{counts[i]/week_days_freq.shape[0]*100:0.2f}%", ha='center', fontsize=9.5)
+        plt.text(i, counts[i]+200, f"{counts[i]/week_days_freq.shape[0]*100:0.2f}%", ha='center', fontsize=9.5)
     sns.despine()
     st.pyplot(fig)
 
