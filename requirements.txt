@@ -1,27 +1,12 @@
-# Importing Necessary Libraries
-warnings
-
-# Data Manipulation Libraries
 numpy
 pandas
-scipy
-scikit-learn
-
-# Visualization Libraries
+scipy==1.13.1
 plotly
-matplotlib
-seaborn
-
-# Preprocessing Libraries
-scikit-learn
-
-# Model Libraries
-xgboost
-lightgbm
-keras-tuner
-optuna
-
-# Evaluation Libraries
-streamlit
-
-
+matplotlib==3.8.4
+seaborn==0.13.2
+scikit-learn==1.4.2
+xgboost==2.1.1
+lightgbm==4.5.0
+keras-tuner==1.4.7
+optuna==4.0.0
+streamlit== 1.32.0
