@@ -140,12 +140,20 @@ def display_visual_analysis():
 
     # Booking Date Month Distribution
     st.write("#### Booking Date Month Distribution")
-    fig, ax = plt.subplots(figsize=(10, 7))
     months_freq = user_data['date_first_booking'].dropna().dt.month_name().str[:3]
-    sns.countplot(x=months_freq, order=months_freq.value_counts().index, ax=ax)
+    counts = months_freq.value_counts()
+    counts_order = counts.index
+    fig, ax = plt.subplots(figsize=(10, 7))
+    sns.countplot(x=months_freq, order=counts_order, ax=ax)
+    ax.set_xlabel('Booking Date Month')
+    ax.set_ylabel('Count')
+    ax.set_title('Booking Date Month Distribution')
+    # Adding percentage labels above the bars
     for i in range(counts.shape[0]):
-        ax.text(i, counts[i]+100, f"{counts[i]/months_freq.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+        ax.text(i, counts[i]+100, f"{counts[i]/months_freq.shape[0]*100:.2f}%", ha='center', fontsize=9)
+    sns.despine()
     st.pyplot(fig)
+
 
     # Booking Date Week Day Distribution
     st.write("#### Booking Date Week Day Distribution")
