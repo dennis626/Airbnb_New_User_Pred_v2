@@ -371,12 +371,13 @@ def display_visual_analysis():
     st.pyplot(fig)
 
     # Destination Country Distribution Per Age
-    st.write("#### Destination Country Distribution Per Age")
+    st.write("#### Destination Country Distribution Per Age (Ages 0 - 120)")
+    filtered_data = user_data[(user_data['age'] >= 0) & (user_data['age'] <= 120)]
     fig, ax = plt.subplots(figsize=(14, 8))
-    sns.boxplot(x='country_destination', y='age', data=user_data, ax=ax)
-    plt.xlabel('Destination Country')
-    plt.ylabel('Age')
-    plt.title('Destination Country Distribution Per Age')
+    sns.boxplot(x='country_destination', y='age', data=filtered_data, ax=ax)
+    ax.set_xlabel('Destination Country')
+    ax.set_ylabel('Age')
+    ax.set_title('Destination Country Distribution Per Age')
     sns.despine()
     st.pyplot(fig)
 
