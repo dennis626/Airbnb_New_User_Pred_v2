@@ -233,84 +233,69 @@ def display_visual_analysis():
     st.pyplot(fig)
 
     # Monthly Trends in Account Creation
-    st.write("#### Monthly Trends in Account Creation")
-    user_data['date_account_created'] = pd.to_datetime(user_data['date_account_created'])
-    user_data['year_month'] = user_data['date_account_created'].dt.to_period('M').astype(str)
-    monthly_counts = user_data.groupby('year_month').size().reset_index(name='counts')
-    fig = px.line(monthly_counts, x='year_month', y='counts', title='Monthly Trends in Account Creation')
-    st.plotly_chart(fig)
+   # st.write("#### Monthly Trends in Account Creation")
+   # user_data['date_account_created'] = pd.to_datetime(user_data['date_account_created'])
+   # user_data['year_month'] = user_data['date_account_created'].dt.to_period('M').astype(str)
+   # monthly_counts = user_data.groupby('year_month').size().reset_index(name='counts')
+   # fig = px.line(monthly_counts, x='year_month', y='counts', title='Monthly Trends in Account Creation')
+   # st.plotly_chart(fig)
 
     # Monthly Trends in Account Creation
-st.write("#### Monthly Trends in Account Creation")
-
-# Ensure 'date_account_created' is in datetime format
-user_data['date_account_created'] = pd.to_datetime(user_data['date_account_created'])
-
-# Extract year and month
-user_data['year'] = user_data['date_account_created'].dt.year
-user_data['year_month'] = user_data['date_account_created'].dt.to_period('M').astype(str)
-
-# Group by year and month and count occurrences
-monthly_counts = user_data.groupby('year_month').size().reset_index(name='counts')
-
-# Create a Plotly figure with one trace per year
-fig = go.Figure()
-
-years = sorted(user_data['year'].unique())
-
-for year in years:
-    filtered_data = monthly_counts[monthly_counts['year_month'].str.startswith(str(year))]
-    fig.add_trace(go.Scatter(
-        x=filtered_data['year_month'],
-        y=filtered_data['counts'],
-        mode='lines+markers',
-        name=str(year),
-        visible=False
-    ))
-
-# Make the first year trace visible by default
-if len(fig.data) > 0:
-    fig.data[0].visible = True
-
-# Create dropdown buttons to toggle visibility of traces
-dropdown_buttons = [
-    {
-        'label': f'Year {year}',
-        'method': 'update',
-        'args': [{'visible': [year == int(trace.name) for trace in fig.data]}]
-    }
-    for year in years
-]
-
-# Add a "Show All" button
-dropdown_buttons.append(
-    {
-        'label': 'Show All',
-        'method': 'update',
-        'args': [{'visible': [True] * len(fig.data)}]
-    }
-)
-
-# Update layout with dropdown menu
-fig.update_layout(
-    title='Monthly Trends in Account Creation',
-    xaxis_title='Month',
-    yaxis_title='Number of Accounts',
-    updatemenus=[{
-        'buttons': dropdown_buttons,
-        'direction': 'down',
-        'showactive': True,
-        'x': 1,
-        'xanchor': 'left',
-        'y': 1.15,
-        'yanchor': 'top'
-    }],
-    height=600,
-    template='plotly_white'
-)
-
-# Display the plot in Streamlit
-st.plotly_chart(fig)
+    st.write("#### Monthly Trends in Account Creation")
+    user_data['date_account_created'] = pd.to_datetime(user_data['date_account_created'])
+    user_data['year'] = user_data['date_account_created'].dt.year
+    user_data['year_month'] = user_data['date_account_created'].dt.to_period('M').astype(str)
+    monthly_counts = user_data.groupby('year_month').size().reset_index(name='counts')
+    fig = go.Figure()
+    
+    years = sorted(user_data['year'].unique())
+    for year in years:
+        filtered_data = monthly_counts[monthly_counts['year_month'].str.startswith(str(year))]
+        fig.add_trace(go.Scatter(
+            x=filtered_data['year_month'],
+            y=filtered_data['counts'],
+            mode='lines+markers',
+            name=str(year),
+            visible=False
+        ))
+    
+    # Make the first year trace visible by default
+    if len(fig.data) > 0:
+        fig.data[0].visible = True
+    
+    # Create dropdown buttons to toggle visibility of traces
+    dropdown_buttons = [
+        {
+            'label': f'Year {year}',
+            'method': 'update',
+            'args': [{'visible': [year == int(trace.name) for trace in fig.data]}]
+        }
+        for year in years
+    ]
+    dropdown_buttons.append(
+        {
+            'label': 'Show All',
+            'method': 'update',
+            'args': [{'visible': [True] * len(fig.data)}]
+        }
+    )
+    fig.update_layout(
+        title='Monthly Trends in Account Creation',
+        xaxis_title='Month',
+        yaxis_title='Number of Accounts',
+        updatemenus=[{
+            'buttons': dropdown_buttons,
+            'direction': 'down',
+            'showactive': True,
+            'x': 1,
+            'xanchor': 'left',
+            'y': 1.15,
+            'yanchor': 'top'
+        }],
+        height=600,
+        template='plotly_white'
+    )
+    st.plotly_chart(fig)
 
     # Monthly Trends in Account Creation for Users Traveling to the US
     st.write("#### Monthly Trends in Account Creation for Users Traveling to the US")
