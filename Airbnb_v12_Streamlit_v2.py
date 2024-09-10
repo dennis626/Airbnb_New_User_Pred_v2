@@ -87,7 +87,8 @@ def display_visual_analysis():
     plt.title('Gender Distribution')
     for i in range(counts.shape[0]):
         plt.text(i, counts[i]+1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
-    sns.despine()st.pyplot(fig)
+    sns.despine()
+    st.pyplot(fig)
 
     # Gender-Age Distribution
     st.write("#### Gender-Age Distribution")
