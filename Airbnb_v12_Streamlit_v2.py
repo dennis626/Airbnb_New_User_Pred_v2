@@ -20,10 +20,10 @@ def display_model_performance_metrics():
     st.write("### Model Performance Metrics")
     results = {
         "Model": ["XGBoost", "Logistic Regression (Bayesian)"],
-        "Accuracy": [0.65, 0.61],
-        "Precision": [0.59, 0.54],
+        "Accuracy": [0.65, 0.62],
+        "Precision": [0.58, 0.54],
         "Recall": [0.65, 0.62],
-        "F1-Score": [0.60, 0.59],
+        "F1-Score": [0.60, 0.56],
         "NDCG Score": [0.83, 0.82]
     }
     results_df = pd.DataFrame(results)
