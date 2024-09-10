@@ -503,23 +503,14 @@ def display_visual_analysis():
 
 # Monthly Booking Trends
 st.write("#### Monthly Booking Trends")
-
-# Ensure 'date_first_booking' is in datetime format
 user_data['date_first_booking'] = pd.to_datetime(user_data['date_first_booking'])
-
-# Extract year and month from 'date_first_booking'
 user_data['year'] = user_data['date_first_booking'].dt.year
 user_data['year_month_booking'] = user_data['date_first_booking'].dt.to_period('M').astype(str)
-
-# Group by year and month and count occurrences, but limit counts to 6000
 monthly_bookings = user_data.groupby(['year', 'year_month_booking']).size().reset_index(name='counts')
 monthly_bookings['counts'] = monthly_bookings['counts'].clip(upper=6000)
-
-# Create a Plotly figure with one trace per year
 fig = go.Figure()
 
 years = sorted(user_data['year'].unique())
-
 for year in years:
     filtered_data = monthly_bookings[monthly_bookings['year'] == year]
     fig.add_trace(go.Scatter(
@@ -529,8 +520,6 @@ for year in years:
         name=str(year),
         visible=False
     ))
-
-# Make the first year trace visible by default
 if len(fig.data) > 0:
     fig.data[0].visible = True
 
@@ -545,8 +534,6 @@ dropdown_buttons = [
     }
     for year in years
 ]
-
-# Add a "Show All" button
 dropdown_buttons.append(
     {
         'label': 'Show All',
@@ -556,8 +543,6 @@ dropdown_buttons.append(
                   'yaxis.title': 'Number of Bookings'}]
     }
 )
-
-# Update layout with dropdown menu
 fig.update_layout(
     title='Monthly Booking Trends (Limited to 6000)',
     xaxis_title='Month',
@@ -574,17 +559,7 @@ fig.update_layout(
     height=600,
     template='plotly_white'
 )
-
-# Display the plot in Streamlit
 st.plotly_chart(fig)
-
-
-
-
-    
-
-
-
 
 
 
