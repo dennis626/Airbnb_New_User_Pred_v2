@@ -529,7 +529,7 @@ def display_visual_analysis():
     st.write("#### Whether Members Booked Per Signup Method")
     fig, ax = plt.subplots(figsize=(10, 7))
     sns.countplot(x=booked_status, hue='signup_method', data=user_data, ax=ax)
-    counts = user_data.groupby([booked_status, 'signup_method']).size().unstack().fillna(0)
+    counts_signup = user_data.groupby([booked_status, 'signup_method']).size().unstack().fillna(0)
     # Iterate over the bars and annotate percentages
     total_false_signup = counts_signup.loc[False].sum()  # Total number of users in False category
     total_true_signup = counts_signup.loc[True].sum()    # Total number of users in True category
