@@ -139,14 +139,35 @@ def display_visual_analysis():
     st.pyplot(fig)
 
     # Booking Date Month Distribution
+
+
+    # Ensure 'date_first_booking' is in datetime format
+    user_data['date_first_booking'] = pd.to_datetime(user_data['date_first_booking'], errors='coerce')
+    
+    # Booking Date Month Distribution
     st.write("#### Booking Date Month Distribution")
     months_freq = user_data['date_first_booking'].dropna().dt.month_name().str[:3]
+    counts = months_freq.value_counts()
+    counts_order = counts.index
+    
     fig, ax = plt.subplots(figsize=(10, 7))
-    counts = user_data['date_first_booking'].fillna('NaN').value_counts(dropna=False)
-    sns.countplot(x=months_freq, order=months_freq.value_counts().index, ax=ax)
+    sns.countplot(x=months_freq, order=counts_order, ax=ax)
+    
+    # Add labels and title
+    ax.set_xlabel('Booking Date Month')
+    ax.set_ylabel('Count')
+    ax.set_title('Booking Date Month Distribution')
+    
+    # Add percentage labels above the bars
     for i in range(counts.shape[0]):
-        ax.text(counts[i]+4000, i+0.09, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+        ax.text(i, counts[i] + 100, f"{counts[i] / months_freq.shape[0] * 100:.2f}%", ha='center', fontsize=9)
+    
+    # Remove the top and right spines
+    sns.despine()
+    
+    # Display the plot in Streamlit
     st.pyplot(fig)
+
 
     # Booking Date Month Distribution
     st.write("#### Booking Date Month Distribution")
