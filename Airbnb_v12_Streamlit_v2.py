@@ -135,11 +135,11 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(10, 6))
     counts = user_data['first_device_type'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(y=user_data['first_device_type'].fillna('NaN'), order=counts.index, ax=ax)
-    ax.ylabel('First Device Type')
-    ax.xlabel('Count')
-    ax.title('First Device Type Distribution')
+    plt.ylabel('First Device Type')
+    plt.xlabel('Count')
+    plt.title('First Device Type Distribution')
     for i in range(counts.shape[0]):
-        ax.text(counts[i]+4000, i+0.09, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+        plt.text(counts[i]+4000, i+0.09, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
     sns.despine()
     st.pyplot(fig)
 
