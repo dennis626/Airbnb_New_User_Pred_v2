@@ -142,7 +142,10 @@ def display_visual_analysis():
     st.write("#### Booking Date Month Distribution")
     months_freq = user_data['date_first_booking'].dropna().dt.month_name().str[:3]
     fig, ax = plt.subplots(figsize=(10, 7))
+    counts = user_data['date_first_booking'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(x=months_freq, order=months_freq.value_counts().index, ax=ax)
+    for i in range(counts.shape[0]):
+        ax.text(counts[i]+4000, i+0.09, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
     st.pyplot(fig)
 
     # Booking Date Month Distribution
