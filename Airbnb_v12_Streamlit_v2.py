@@ -298,10 +298,66 @@ def display_visual_analysis():
     st.plotly_chart(fig)
 
     # Monthly Trends in Account Creation for Users Traveling to the US
+   # st.write("#### Monthly Trends in Account Creation for Users Traveling to the US")
+   # us_travel_data = user_data[user_data['country_destination'] == 'US']
+   # monthly_counts = us_travel_data.groupby('year_month').size().reset_index(name='counts')
+   # fig = px.line(monthly_counts, x='year_month', y='counts', title='Monthly Trends for US Travelers')
+   # st.plotly_chart(fig)
+
+    # Monthly Trends in Account Creation for Users Traveling to the US
     st.write("#### Monthly Trends in Account Creation for Users Traveling to the US")
+    user_data['date_account_created'] = pd.to_datetime(user_data['date_account_created'])
+    user_data['year'] = user_data['date_account_created'].dt.year
+    user_data['year_month'] = user_data['date_account_created'].dt.to_period('M').astype(str)
     us_travel_data = user_data[user_data['country_destination'] == 'US']
     monthly_counts = us_travel_data.groupby('year_month').size().reset_index(name='counts')
-    fig = px.line(monthly_counts, x='year_month', y='counts', title='Monthly Trends for US Travelers')
+    fig = go.Figure()
+    
+    years = sorted(us_travel_data['year'].unique())
+    for year in years:
+        filtered_data = monthly_counts[monthly_counts['year_month'].str.startswith(str(year))]
+        fig.add_trace(go.Scatter(
+            x=filtered_data['year_month'],
+            y=filtered_data['counts'],
+            mode='lines+markers',
+            name=str(year),
+            visible=False
+        ))
+    
+    if len(fig.data) > 0:
+        fig.data[0].visible = True
+    dropdown_buttons = [
+        {
+            'label': f'Year {year}',
+            'method': 'update',
+            'args': [{'visible': [year == int(trace.name) for trace in fig.data]}]
+        }
+        for year in years
+    ]
+    
+    dropdown_buttons.append(
+        {
+            'label': 'Show All',
+            'method': 'update',
+            'args': [{'visible': [True] * len(fig.data)}]
+        }
+    )
+    fig.update_layout(
+        title='Monthly Trends in Account Creation for Users Traveling to the US',
+        xaxis_title='Month',
+        yaxis_title='Number of Accounts',
+        updatemenus=[{
+            'buttons': dropdown_buttons,
+            'direction': 'down',
+            'showactive': True,
+            'x': 1,
+            'xanchor': 'left',
+            'y': 1.15,
+            'yanchor': 'top'
+        }],
+        height=600,
+        template='plotly_white'
+    )
     st.plotly_chart(fig)
 
     # Destination Country Distribution Per Gender
