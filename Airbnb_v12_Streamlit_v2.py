@@ -98,13 +98,19 @@ def display_visual_analysis():
     # Affiliate Provider Distribution
     st.write("#### Affiliate Provider Distribution")
     fig, ax = plt.subplots(figsize=(10, 7))
-    sns.countplot(y=user_data['affiliate_provider'], ax=ax)
+    counts = user_data['affiliate_provider'].fillna('NaN').value_counts(dropna=False)
+    sns.countplot(y=user_data['affiliate_provider'].fillna('NaN'), order=counts.index, ax=ax)
+    for i in range(len(counts)):
+        ax.text(i, counts[i] + 1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
     st.pyplot(fig)
 
     # Affiliate Channel Distribution
     st.write("#### Affiliate Channel Distribution")
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.countplot(y=user_data['affiliate_channel'], ax=ax)
+    counts = user_data['affiliate_channel'].fillna('NaN').value_counts(dropna=False)
+    sns.countplot(y=user_data['affiliate_channel'].fillna('NaN'), order=counts.index, ax=ax)
+    for i in range(len(counts)):
+        ax.text(i, counts[i] + 1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
     st.pyplot(fig)
 
     # Affiliate Channel Flows Treemap
