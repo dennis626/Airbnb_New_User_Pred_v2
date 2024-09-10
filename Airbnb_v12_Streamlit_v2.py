@@ -507,10 +507,18 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(10, 7))
     sns.countplot(x=booked_status, hue='gender', data=user_data, ax=ax)
     counts = user_data.groupby([booked_status, 'gender']).size().unstack().fillna(0)
-    total = user_data.shape[0]  
+    # Iterate over the bars and annotate percentages
+    total_false = counts.loc[False].sum()  # Total number of users in False category
+    total_true = counts.loc[True].sum()    # Total number of users in True category
     for p in ax.patches:
-        height = p.get_height()
-        ax.text(p.get_x() + p.get_width() / 2, height + 100, f'{height / total * 100:.2f}%', ha='center', fontsize=10)
+        # Identify if the bar belongs to True or False and calculate the appropriate percentage
+        if p.get_x() < 0.5:  # Left side (False)
+            height = p.get_height()
+            percentage = height / total_false * 100 if total_false != 0 else 0
+        else:  # Right side (True)
+            height = p.get_height()
+            percentage = height / total_true * 100 if total_true != 0 else 0
+    ax.text(p.get_x() + p.get_width() / 2, height + 100, f'{percentage:.2f}%', ha='center', fontsize=10)
     ax.set_xlabel('Status')
     ax.set_ylabel('Count')
     ax.set_title('Whether Members Booked Per Gender')
@@ -522,10 +530,18 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(10, 7))
     sns.countplot(x=booked_status, hue='signup_method', data=user_data, ax=ax)
     counts = user_data.groupby([booked_status, 'signup_method']).size().unstack().fillna(0)
-    total = user_data.shape[0] 
+    # Iterate over the bars and annotate percentages
+    total_false_signup = counts_signup.loc[False].sum()  # Total number of users in False category
+    total_true_signup = counts_signup.loc[True].sum()    # Total number of users in True category
     for p in ax.patches:
-        height = p.get_height()
-        ax.text(p.get_x() + p.get_width() / 2, height + 100, f'{height / total * 100:.2f}%', ha='center', fontsize=10)
+        # Identify if the bar belongs to True or False and calculate the appropriate percentage
+        if p.get_x() < 0.5:  # Left side (False)
+            height = p.get_height()
+            percentage = height / total_false_signup * 100 if total_false_signup != 0 else 0
+        else:  # Right side (True)
+            height = p.get_height()
+            percentage = height / total_true_signup * 100 if total_true_signup != 0 else 0
+    ax.text(p.get_x() + p.get_width() / 2, height + 100, f'{percentage:.2f}%', ha='center', fontsize=10)
     ax.set_xlabel('Status')
     ax.set_ylabel('Count')
     ax.set_title('Whether Members Booked Per Signup Method')
