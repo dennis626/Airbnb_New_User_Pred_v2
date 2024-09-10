@@ -127,6 +127,7 @@ def display_visual_analysis():
     sns.countplot(x=user_data['language'], ax=ax)
     for i in range(counts.shape[0]):
         ax.text(i, counts[i]+1000, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=6)
+    sns.despine()
     st.pyplot(fig)
 
     # First Device Type Distribution
@@ -134,8 +135,12 @@ def display_visual_analysis():
     fig, ax = plt.subplots(figsize=(10, 6))
     counts = user_data['first_device_type'].fillna('NaN').value_counts(dropna=False)
     sns.countplot(y=user_data['first_device_type'].fillna('NaN'), order=counts.index, ax=ax)
+    ax.ylabel('First Device Type')
+    ax.xlabel('Count')
+    ax.title('First Device Type Distribution')
     for i in range(counts.shape[0]):
         ax.text(counts[i]+4000, i+0.09, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
+    sns.despine()
     st.pyplot(fig)
 
     # Ensure 'date_first_booking' is in datetime format
@@ -168,7 +173,7 @@ def display_visual_analysis():
     ax.title('Booking Date Week Day Distribution')
     for i in range(counts.shape[0]):
         ax.text(i, counts[i]+200, f"{counts[i]/week_days_freq.shape[0]*100:0.2f}%", ha='center', fontsize=9.5)
-    sns.despine();
+    sns.despine()
     st.pyplot(fig)
 
     # Destination Country Distribution
@@ -182,7 +187,7 @@ def display_visual_analysis():
     ax.title('Destination Country Distribution')
     for i in range(counts.shape[0]):
         ax.text(i, counts[i]+1000, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
-    sns.despine();
+    sns.despine()
     st.pyplot(fig)
 
     # Account Creation Date Frequency
