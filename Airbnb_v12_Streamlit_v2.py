@@ -89,7 +89,8 @@ def display_visual_analysis():
     # Signup Method Distribution
     st.write("#### Signup Method Distribution")
     fig, ax = plt.subplots(figsize=(9, 6))
-    sns.countplot(x=user_data['signup_method'], ax=ax)
+    counts = user_data['signup_method'].fillna('NaN').value_counts(dropna=False)
+    sns.countplot(x=user_data['signup_method'].fillna('NaN'), order=counts.index, ax=ax)
     for i in range(len(counts)):
         ax.text(i, counts[i] + 1200, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=10)
     st.pyplot(fig)
