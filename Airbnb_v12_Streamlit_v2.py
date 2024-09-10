@@ -117,7 +117,10 @@ def display_visual_analysis():
     st.write("#### Affiliate Channel Flows Distribution")
     signup_flow_dist = user_data['affiliate_channel'].value_counts().reset_index()
     signup_flow_dist.columns = ['affiliate_channel', 'count']
+    counts = user_data['affiliate_channel'].fillna('NaN').value_counts(dropna=False)
     fig = px.treemap(signup_flow_dist, path=['affiliate_channel'], values='count', title='Affiliate Channel Flows Distribution')
+    for i in range(counts.shape[0]):
+        ax.text(i, counts[i]+1000, f"{counts[i]/user_data.shape[0]*100:0.2f}%", ha='center', fontsize=6)
     st.plotly_chart(fig)
 
     # Language Distribution
