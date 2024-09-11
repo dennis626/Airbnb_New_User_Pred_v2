@@ -5,9 +5,14 @@ import seaborn as sns
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
+from PIL import Image
 
-# Add the title for the whole app
-st.title("Airbnb New User Booking Prediction")
+# Add Airbnb logo to the sidebar
+image = Image.open('airbnb_logo.webp')
+st.sidebar.image(image, use_column_width=True)
+
+# Title with pattern and custom styles
+st.markdown('<h1 style="text-align:center; color:#2C3E50;">Airbnb New User Booking Prediction</h1>', unsafe_allow_html=True)
 st.markdown('--------------------------------')
 
 # Load EDA data 'user_data.csv'
@@ -18,10 +23,22 @@ sub_whole_df = pd.read_csv('result_Best_Score_v2.csv')
 # Define a sidebar with four different pages
 st.sidebar.title("Navigation")
 page = st.sidebar.selectbox("Select a Page", ["1.0 Model Performance Metrics", "2.0 Visual Analysis (EDA)", "3.0 Dropdown for User ID", "4.0 Dropdown for Country"])
+st.sidebar.markdown('<h3 style="color:#3498DB;">Navigation</h3>', unsafe_allow_html=True)
 
 # Function to display model performance metrics
 def display_model_performance_metrics():
     st.write("### Model Performance Metrics")
+
+    # Using expander to add more details about the metrics
+    with st.expander("Click to see the description of the metrics"):
+        st.write("""
+            - **Accuracy**: The percentage of correct predictions.
+            - **Precision**: The proportion of positive identifications that are correct.
+            - **Recall**: The proportion of actual positives that were identified correctly.
+            - **F1-Score**: The harmonic mean of precision and recall.
+            - **NDCG Score**: Normalized Discounted Cumulative Gain, used for ranking quality.
+        """)
+    
     results = {
         "Model": ["XGBoost", "Logistic Regression (Bayesian)"],
         "Accuracy": [0.65, 0.62],
@@ -31,13 +48,10 @@ def display_model_performance_metrics():
         "NDCG Score": [0.83, 0.82]
     }
     results_df = pd.DataFrame(results)
-
     st.dataframe(results_df)
 
-    # Set up the figure and axes
+    # Set up the figure and axes for comparison
     fig, ax = plt.subplots(1, 2, figsize=(12, 6))
-
-    # Create a bar width and x positions for bars
     bar_width = 0.2
     x = np.arange(len(results_df['Model']))
 
@@ -535,6 +549,26 @@ def dropdown_test_ids():
     st.write(f"### Country results for User ID: {selected_test_id}")
     st.write(filtered_by_test_id)
 
+    # Provide a clickable link to Airbnb
+    st.markdown('[Go to Airbnb website](https://www.airbnb.com/)')
+
+    # Add extra information using expander
+    with st.expander("Click here for more information about countries"):
+        st.markdown("""
+        **Country Notes:**
+        - NDF: No Destination Found
+        - US: United States
+        - FR: France
+        - IT: Italy
+        - GB: Great Britain/United Kingdom
+        - ES: Spain
+        - CA: Canada
+        - DE: Germany
+        - NL: Netherlands
+        - AU: Australia
+        - PT: Portugal
+        """)
+    
     # Add the remark message
     st.markdown("""
     **Country Notes:**
@@ -559,6 +593,26 @@ def dropdown_lbl_encoder():
     st.write(f"### User ID for Country {selected_lbl_encoder}")
     st.write(filtered_by_lbl_encoder)
 
+    # Provide a clickable link to Airbnb
+    st.markdown('[Go to Airbnb website](https://www.airbnb.com/)')
+
+    # Add extra information using expander
+    with st.expander("Click here for more information about countries"):
+        st.markdown("""
+        **Country Notes:**
+        - NDF: No Destination Found
+        - US: United States
+        - FR: France
+        - IT: Italy
+        - GB: Great Britain/United Kingdom
+        - ES: Spain
+        - CA: Canada
+        - DE: Germany
+        - NL: Netherlands
+        - AU: Australia
+        - PT: Portugal
+        """)
+    
     # Add the remark message
     st.markdown("""
     **Country Notes:**
