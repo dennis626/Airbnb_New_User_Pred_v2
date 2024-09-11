@@ -12,7 +12,7 @@ image = Image.open('Airbnb_logo.jpg')
 st.sidebar.image(image, use_column_width=True)
 
 # Title with pattern and custom styles
-st.markdown('<h1 style="text-align:center; color:#2C3E50;">Airbnb New User Booking Prediction</h1>', unsafe_allow_html=True)
+st.markdown('<h1 style="text-align:center; color:#FF5A5F;">Airbnb New User Booking Prediction</h1>', unsafe_allow_html=True)
 st.markdown('--------------------------------')
 
 # Load EDA data 'user_data.csv'
