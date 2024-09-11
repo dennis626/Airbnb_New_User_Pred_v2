@@ -21,9 +21,8 @@ user_data = pd.read_csv('train_users_2.csv')
 sub_whole_df = pd.read_csv('result_Best_Score_v2.csv')
 
 # Define a sidebar with four different pages
-st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Select a Page", ["1.0 Model Performance Metrics", "2.0 Visual Analysis (EDA)", "3.0 Dropdown for User ID", "4.0 Dropdown for Country"])
 st.sidebar.markdown('<h3 style="color:#3498DB;">Navigation</h3>', unsafe_allow_html=True)
+page = st.sidebar.selectbox("Select a Page", ["1.0 Model Performance Metrics", "2.0 Visual Analysis (EDA)", "3.0 Dropdown for User ID", "4.0 Dropdown for Country"])
 
 # Function to display model performance metrics
 def display_model_performance_metrics():
