@@ -568,15 +568,25 @@ def dropdown_test_ids():
         - PT: Portugal
         """)
 
-
-# Function for dropdown to filter lbl_encoder
+# Function for dropdown to filter lbl_encoder and display user count
 def dropdown_lbl_encoder():
     st.write("### Search Country")
+    
+    # Dropdown to select a country
     selected_lbl_encoder = st.selectbox("Select Country", sub_whole_df['country'].unique())
+    
+    # Filter data by the selected country
     filtered_by_lbl_encoder = sub_whole_df[sub_whole_df['country'] == selected_lbl_encoder]
-    st.write(f"### User ID for Country {selected_lbl_encoder}")
+    
+    # Count the total number of user IDs for the selected country
+    user_count = len(filtered_by_lbl_encoder)
+    
+    # Display the selected country and the total number of users
+    st.write(f"### {user_count} Users Found for Country: {selected_lbl_encoder}")
+    
+    # Display the filtered data
     st.write(filtered_by_lbl_encoder)
-
+    
     # Provide a clickable link to Airbnb
     st.markdown('[Go to Airbnb website](https://www.airbnb.com/)')
 
