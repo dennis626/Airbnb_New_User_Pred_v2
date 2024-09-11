@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 
 # Add Airbnb logo to the sidebar
-image = Image.open('airbnb_logo.jpg')
+image = Image.open('Airbnb_logo.jpg')
 st.sidebar.image(image, use_column_width=True)
 
 # Title with pattern and custom styles
