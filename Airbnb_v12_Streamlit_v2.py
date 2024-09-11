@@ -26,7 +26,7 @@ page = st.sidebar.selectbox("Select a Page", ["1.0 Model Performance Metrics", "
 
 # Function to display model performance metrics
 def display_model_performance_metrics():
-    st.write("### Model Performance Metrics")
+    st.write("### 1.0 Model Performance Metrics")
     
     results = {
         "Model": ["XGBoost", "Logistic Regression (Bayesian)"],
@@ -73,7 +73,7 @@ def display_model_performance_metrics():
 
 # Function to display visual analysis or EDA
 def display_visual_analysis():
-    st.write("### Visual Analysis (EDA)")
+    st.write("### 2.0 Visual Analysis (EDA)")
 
     # Age Distribution
     st.write("#### Age Distribution (Ages 0 - 120)")
@@ -542,7 +542,7 @@ def display_visual_analysis():
 
 # Function for dropdown to filter test_ids
 def dropdown_test_ids():
-    st.write("### Search User ID")
+    st.write("### 3.0 Search User ID")
     selected_test_id = st.selectbox("Select User ID", sub_whole_df['id'].unique())
     filtered_by_test_id = sub_whole_df[sub_whole_df['id'] == selected_test_id]
     st.write(f"### Country results for User ID: {selected_test_id}")
@@ -570,7 +570,7 @@ def dropdown_test_ids():
 
 # Function for dropdown to filter lbl_encoder and display user count
 def dropdown_lbl_encoder():
-    st.write("### Search Country")
+    st.write("### 4.0 Search Country")
     
     # Dropdown to select a country
     selected_lbl_encoder = st.selectbox("Select Country", sub_whole_df['country'].unique())
