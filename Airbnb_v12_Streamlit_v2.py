@@ -8,7 +8,7 @@ import numpy as np
 
 # Add the title for the whole app
 st.title("Airbnb New User Booking Prediction")
-st.subtitle("-------------------------------")
+st.markdown('--------------------------------')
 
 # Load EDA data 'user_data.csv'
 user_data = pd.read_csv('train_users_2.csv') 
