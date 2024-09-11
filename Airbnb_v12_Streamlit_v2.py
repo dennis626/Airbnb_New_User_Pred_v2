@@ -6,6 +6,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 
+# Add the title for the whole app
+st.title("Airbnb New User Booking Prediction")
+
 # Load EDA data 'user_data.csv'
 user_data = pd.read_csv('train_users_2.csv') 
 # Load 'result_Best_Score.csv'
