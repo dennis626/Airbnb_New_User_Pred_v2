@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 
 # Add Airbnb logo to the sidebar
-image = Image.open('airbnb_logo.webp')
+image = Image.open('airbnb_logo.jpg')
 st.sidebar.image(image, use_column_width=True)
 
 # Title with pattern and custom styles
@@ -568,22 +568,7 @@ def dropdown_test_ids():
         - AU: Australia
         - PT: Portugal
         """)
-    
-    # Add the remark message
-    st.markdown("""
-    **Country Notes:**
-    - NDF: No Destination Found
-    - US: United States
-    - FR: France
-    - IT: Italy
-    - GB: Great Britain/United Kingdom
-    - ES: Spain
-    - CA: Canada
-    - DE: Germany
-    - NL: Netherlands
-    - AU: Australia
-    - PT: Portugal
-    """)
+
 
 # Function for dropdown to filter lbl_encoder
 def dropdown_lbl_encoder():
@@ -612,22 +597,6 @@ def dropdown_lbl_encoder():
         - AU: Australia
         - PT: Portugal
         """)
-    
-    # Add the remark message
-    st.markdown("""
-    **Country Notes:**
-    - NDF: No Destination Found
-    - US: United States
-    - FR: France
-    - IT: Italy
-    - GB: Great Britain/United Kingdom
-    - ES: Spain
-    - CA: Canada
-    - DE: Germany
-    - NL: Netherlands
-    - AU: Australia
-    - PT: Portugal
-    """)
 
 # Page navigation logic
 if page == "1.0 Model Performance Metrics":
