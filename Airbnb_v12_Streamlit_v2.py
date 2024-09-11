@@ -21,22 +21,12 @@ user_data = pd.read_csv('train_users_2.csv')
 sub_whole_df = pd.read_csv('result_Best_Score_v2.csv')
 
 # Define a sidebar with four different pages
-st.sidebar.markdown('<h3 style="color:#3498DB;">Navigation</h3>', unsafe_allow_html=True)
+st.sidebar.markdown('<h2 style="color:#3498DB;">Navigation</h2>', unsafe_allow_html=True)
 page = st.sidebar.selectbox("Select a Page", ["1.0 Model Performance Metrics", "2.0 Visual Analysis (EDA)", "3.0 Dropdown for User ID", "4.0 Dropdown for Country"])
 
 # Function to display model performance metrics
 def display_model_performance_metrics():
     st.write("### Model Performance Metrics")
-
-    # Using expander to add more details about the metrics
-    with st.expander("Click to see the description of the metrics"):
-        st.write("""
-            - **Accuracy**: The percentage of correct predictions.
-            - **Precision**: The proportion of positive identifications that are correct.
-            - **Recall**: The proportion of actual positives that were identified correctly.
-            - **F1-Score**: The harmonic mean of precision and recall.
-            - **NDCG Score**: Normalized Discounted Cumulative Gain, used for ranking quality.
-        """)
     
     results = {
         "Model": ["XGBoost", "Logistic Regression (Bayesian)"],
@@ -70,6 +60,16 @@ def display_model_performance_metrics():
     ax[1].set_title("NDCG Score Comparison")
 
     st.pyplot(fig)
+
+    # Using expander to add more details about the metrics
+    with st.expander("Click to see the description of the metrics"):
+        st.write("""
+            - **Accuracy**: The percentage of correct predictions.
+            - **Precision**: The proportion of positive identifications that are correct.
+            - **Recall**: The proportion of actual positives that were identified correctly.
+            - **F1-Score**: The harmonic mean of precision and recall.
+            - **NDCG Score**: Normalized Discounted Cumulative Gain, used for ranking quality.
+        """)
 
 # Function to display visual analysis or EDA
 def display_visual_analysis():
