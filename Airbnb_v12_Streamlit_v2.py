@@ -46,13 +46,13 @@ def display_model_performance_metrics():
 
     # Plot Accuracy, Recall, Precision, F1-Score (on the first subplot)
     ax[0].bar(x - bar_width*1.5, results_df['Accuracy'], width=bar_width, label="Accuracy")
-    ax[0].bar(x - bar_width/2, results_df['Recall'], width=bar_width, label="Recall")
     ax[0].bar(x + bar_width/2, results_df['Precision'], width=bar_width, label="Precision")
+    ax[0].bar(x - bar_width/2, results_df['Recall'], width=bar_width, label="Recall")
     ax[0].bar(x + bar_width*1.5, results_df['F1-Score'], width=bar_width, label="F1-Score")
     ax[0].set_xticks(x)
     ax[0].set_xticklabels(results_df['Model'])
     ax[0].legend()
-    ax[0].set_title("Accuracy, Recall, Precision, F1-Score Comparison")
+    ax[0].set_title("Accuracy, Precision, Recall, F1-Score Comparison")
 
     # Plot NDCG Score (on the second subplot)
     ax[1].bar(results_df['Model'], results_df['NDCG Score'], label="NDCG Score", color='purple')
